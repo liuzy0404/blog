@@ -5,19 +5,19 @@
 ### JSESSIONID-WYTXZDL
 JSESSIONID-WYTXZDL是通过js脚本进行设置的，具体代码在[这个请求](https://dl.reg.163.com/src/mp-agent-finger.html)中。
 
-代码是经过压缩和转义的，首先[格式化代码](http://jsnice.org/)，然后通过debugger可以清晰的看到它做了什么。主要设置了JSESSIONID-WYTXZDL的值，并将未编码过的值暴露给了window对象。我们通过encodeURIComponent(window.jsessionidwytxzdl)就能拿到完整的值。
+代码是经过压缩和转义的，首先[格式化代码](http://jsnice.org/)，然后通过debugger可以清晰的看到它做了什么。主要设置了JSESSIONID-WYTXZDL的值，并将未编码过的值暴露给了window对象。我们通过`encodeURIComponent(window.jsessionidwytxzdl)`就能拿到完整的值。
 
 ### jsessionid-cpta
-同样jsessionid-cpta也是通过js进行设置的，具体代码在[这个请求](http://ursdoccdn.nosdn.127.net/captcha/c_2.2.2.js)中，值同样暴露给了window对象。我们通过encodeURIComponent(window.jsessionidcpta)拿到值。
+同样jsessionid-cpta也是通过js进行设置的，具体代码在[这个请求](http://ursdoccdn.nosdn.127.net/captcha/c_2.2.2.js)中，值同样暴露给了window对象。我们通过`encodeURIComponent(window.jsessionidcpta)`拿到值。
 
 ### 密码rsa加密算法
-输入帐号密码完成图形验证后，点击登录的请求中可以看到密码是加密过的。经过查找加密算法代码在[这个请求](http://ursdoccdn.nosdn.127.net/webzj_cdn101/pp_index_dl_288a2baadb6e36e09a52563f2870b684.js)中。加密算法为MP.encrypt2方法，因脚本文件比较大，可以把加密算法部分单独拿出来。
+输入帐号密码完成图形验证后，点击登录的请求中可以看到密码是加密过的。经过查找加密算法代码在[这个请求](http://ursdoccdn.nosdn.127.net/webzj_cdn101/pp_index_dl_288a2baadb6e36e09a52563f2870b684.js)中。加密算法为`MP.encrypt2`方法，因脚本文件比较大，可以把加密算法部分单独拿出来。
 
 ### 通过HTTP client模拟请求
 有了上面3个值就可以通过HTTP client模拟请求登录了。因为3个值都是通过js设置的，服务端语言选择node就很方便了。图形验证码可以通过本地[请求163的验证码](https://dl.reg.163.com/cp)并手动输入验证。登录请求比较多，这里就不贴了，主要是cookie和请求返回值的处理。
 
-##### 注
-因请求文件版本不同，三个请求地址可能会有变化，这里作为参考。
+
+注: 因请求文件版本不同，三个请求地址可能会有变化，这里作为参考。
 
 JSESSIONID-WYTXZDL: https://dl.reg.163.com/src/mp-agent-finger.html
 

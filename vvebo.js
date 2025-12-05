@@ -3,7 +3,7 @@ let hasUid = (url) => url.includes("uid");
 let getUid = (url) => (hasUid(url) ? url.match(/uid=(\d+)/)[1] : undefined);
 
 if (url.includes("users/show")) {
-  $prefs.setValueForKey(getUid(url), "weibouid");
+  $persistentStore.write(getUid(url), "weibouid");
   $done({});
 } else if (url.includes("profile/statuses/tab")) {
   try {
@@ -33,7 +33,7 @@ if (url.includes("users/show")) {
     console.log("Parsing failed");
   }
 } else if (url.includes("statuses/user_timeline")) {
-  let uid = getUid(url) || $prefs.valueForKey("weibouid");
+  let uid = getUid(url) || $persistentStore.read("weibouid");
   url = url.replace("statuses/user_timeline", "profile/statuses/tab").replace("max_id", "since_id");
   url = url + `&containerid=230413${uid}_-_WEIBO_SECOND_PROFILE_WEIBO`;
   $done({

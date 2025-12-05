@@ -26,7 +26,7 @@ if (url.includes("users/show")) {
       body: JSON.stringify({
         statuses,
         since_id: sinceId,
-        total_number: 100,
+        total_number: 10,
       }),
     });
   } catch {

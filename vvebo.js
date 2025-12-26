@@ -31,6 +31,7 @@ if (url.includes("users/show")) {
     });
   } catch {
     console.log("Parsing failed");
+    $done({});
   }
 } else if (url.includes("statuses/user_timeline")) {
   let uid = getUid(url) || $persistentStore.read("weibouid");
